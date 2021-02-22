@@ -1,4 +1,4 @@
-# telegraf-exec-zpool-status
+# telegraf-exec-btrfs-status
 
 This is a simple tool to extract btrfs status and output [Influx line
 protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol/);
