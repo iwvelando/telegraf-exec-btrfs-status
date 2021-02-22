@@ -1,0 +1,14 @@
+Value Device (\S+)
+Value WriteIOErrors (\d+)
+Value ReadIOErrors (\d+)
+Value FlushIOErrors (\d+)
+Value CorruptionErrors (\d+)
+Value GenerationErrors (\d+)
+
+Start
+  ^\[${Device}\]\.write_io_errs\s+${WriteIOErrors}
+  ^\[${Device}\]\.read_io_errs\s+${ReadIOErrors}
+  ^\[${Device}\]\.flush_io_errs\s+${FlushIOErrors}
+  ^\[${Device}\]\.corruption_errs\s+${CorruptionErrors}
+  ^\[${Device}\]\.generation_errs\s+${GenerationErrors} -> Record Start
+

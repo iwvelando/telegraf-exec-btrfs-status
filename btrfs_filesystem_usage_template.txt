@@ -1,0 +1,31 @@
+Value DeviceSize (\d+)
+Value DeviceAllocated (\d+)
+Value DeviceUnallocated (\d+)
+Value DeviceMissing (\d+)
+Value DeviceUsed (\d+)
+Value DeviceFreeEstimated (\d+)
+Value DeviceFreeEstimatedMin (\d+)
+Value DeviceDataRatio (\d+\.\d+)
+Value DeviceMetadataRatio (\d+\.\d+)
+Value DeviceGlobalReserve (\d+)
+Value DeviceGlobalReserveUsed (\d+)
+Value Filldown Category (Data|Metadata|System|Unallocated)
+Value Type (\S+)
+Value Size (\d+)
+Value Used (\d+)
+Value UsedPercent (\d+\.\d+)
+Value DiskName (\S+)
+Value DiskSize (\d+)
+
+Start
+  ^\s*Device size:\s*${DeviceSize}
+  ^\s*Device allocated:\s*${DeviceAllocated}
+  ^\s*Device unallocated:\s*${DeviceUnallocated}
+  ^\s*Device missing:\s*${DeviceMissing}
+  ^\s*Used:\s*${DeviceUsed}
+  ^\s*Free \(estimated\):\s*${DeviceFreeEstimated}.*\(min: ${DeviceFreeEstimatedMin}\)
+  ^\s*Data ratio:\s*${DeviceDataRatio}
+  ^\s*Metadata ratio:\s*${DeviceMetadataRatio}
+  ^\s*Global reserve:\s*${DeviceGlobalReserve}.*\(used: ${DeviceGlobalReserveUsed}\) -> Record
+  ^${Category}(,${Type}: Size:${Size}, Used:${Used} \(${UsedPercent}%\))? -> Record
+  ^\s*${DiskName}\s*${DiskSize} -> Record

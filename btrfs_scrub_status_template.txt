@@ -1,0 +1,24 @@
+Value Filldown Device (\S+)
+Value Filldown DeviceId (\d+)
+Value StartTimestamp (.*)
+Value Status (\S+)
+Value Duration (\d+:\d+:\d+)
+Value Total (\S+)
+Value Rate (\S+)
+Value Checksum (\d+)
+Value Corrected (\d+)
+Value Uncorrectable (\d+)
+Value Unverified (\d+)
+
+Start
+  ^scrub device ${Device} \(id ${DeviceId}\) history
+  ^Scrub started:\s*${StartTimestamp}
+  ^Status:\s*${Status}
+  ^Duration:\s*${Duration}
+  ^Total to scrub:\s*${Total}
+  ^Rate:\s*${Rate}
+  ^Error summary:\s*csum=${Checksum}
+  ^\s*Corrected:\s*${Corrected}
+  ^\s*Uncorrectable:\s*${Uncorrectable}
+  ^\s*Unverified:\s*${Unverified} -> Record Start
+  ^Error summary:\s*no errors found -> Record Start
