@@ -14,7 +14,7 @@ Value Uncorrectable (\d+)
 Value Unverified (\d+)
 
 Start
-  ^scrub device ${Device} \(id ${DeviceId}\) history
+  ^scrub device ${Device} \(id ${DeviceId}\).*
   ^Scrub started:\s*${StartTimestamp}
   ^Status:\s*${Status}
   ^Duration:\s*${Duration}
