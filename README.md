@@ -236,11 +236,14 @@ checksum_errors      integer
 corrected_errors     integer
 duration             integer
 rate                 integer
+read_errors          integer
 start                integer
-status               string
+status               integer
+super_errors         integer
 total                integer
 uncorrectable_errors integer
 unverified_errors    integer
+verify_errors        integer
 > show tag keys from btrfs_scrub
 name: btrfs_scrub
 tagKey
