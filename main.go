@@ -18,6 +18,13 @@ import (
 	"time"
 )
 
+var statusInt = map[string]int{
+	"running":     0,
+	"finished":    1,
+	"aborted":     2,
+	"interrupted": 3,
+}
+
 func main() {
 
 	logger, err := zap.NewProduction()
@@ -552,7 +559,11 @@ func ParseBtrfsScrubStatus(logger *zap.Logger, mount string, output []byte, temp
 		}
 		startTime := t.Unix()
 
-		status := row[3].(string)
+		var status int
+		statusRaw := row[3].(string)
+		if status, ok = statusInt[statusRaw]; !ok {
+			status = 99
+		}
 
 		durationRaw := row[4].(string)
 		durationSplit := strings.Split(durationRaw, ":")

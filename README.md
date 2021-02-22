@@ -251,6 +251,20 @@ host
 mount
 ```
 
+## Status Mapping
+
+In order to facilitate graphing I express the scrub status as an integer. Based
+on the btrfs-progs source code I identified the following states to map:
+
+| State | Integer |
+| --- | --- |
+| running | 0 |
+| finished | 1 |
+| aborted | 2 |
+| interrupted | 3 |
+
+The default value if a match isn't found is 99.
+
 # Future Work
 
 Tests should be added especially considering the sensitivity of parsing.
