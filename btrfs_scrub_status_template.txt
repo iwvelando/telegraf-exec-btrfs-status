@@ -5,6 +5,9 @@ Value Status (\S+)
 Value Duration (\d+:\d+:\d+)
 Value Total (\S+)
 Value Rate (\S+)
+Value Read (\d+)
+Value Super (\d+)
+Value Verify (\d+)
 Value Checksum (\d+)
 Value Corrected (\d+)
 Value Uncorrectable (\d+)
@@ -17,7 +20,7 @@ Start
   ^Duration:\s*${Duration}
   ^Total to scrub:\s*${Total}
   ^Rate:\s*${Rate}
-  ^Error summary:\s*csum=${Checksum}
+  ^Error summary:\s*(read=${Read}\s*)?(super=${Super}\s*)?(verify=${Verify}\s*)?(csum=${Checksum})?
   ^\s*Corrected:\s*${Corrected}
   ^\s*Uncorrectable:\s*${Uncorrectable}
   ^\s*Unverified:\s*${Unverified} -> Record Start

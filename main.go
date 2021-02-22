@@ -597,24 +597,70 @@ func ParseBtrfsScrubStatus(logger *zap.Logger, mount string, output []byte, temp
 			continue
 		}
 
-		var checksumErrors, correctedErrors,
-			uncorrectableErrors, unverifiedErrors int
-		if row[7].(string) == "" {
+		var readErrors, superErrors, verifyErrors, checksumErrors,
+			correctedErrors, uncorrectableErrors, unverifiedErrors int
+		if row[11].(string) == "" {
+			readErrors = 0
+			superErrors = 0
+			verifyErrors = 0
 			checksumErrors = 0
 			correctedErrors = 0
 			uncorrectableErrors = 0
 			unverifiedErrors = 0
 		} else {
-			checksumErrors, err = strconv.Atoi(row[7].(string))
-			if err != nil {
-				logger.Error("failed to convert checksum errors to int",
-					zap.String("op", "ParseBtrfsScrubStatus"),
-					zap.Error(err),
-				)
-				continue
+			if row[7].(string) != "" {
+				readErrors, err = strconv.Atoi(row[7].(string))
+				if err != nil {
+					logger.Error("failed to convert read errors to int",
+						zap.String("op", "ParseBtrfsScrubStatus"),
+						zap.Error(err),
+					)
+					continue
+				}
+			} else {
+				readErrors = 0
 			}
 
-			correctedErrors, err = strconv.Atoi(row[8].(string))
+			if row[8].(string) != "" {
+				superErrors, err = strconv.Atoi(row[8].(string))
+				if err != nil {
+					logger.Error("failed to convert super errors to int",
+						zap.String("op", "ParseBtrfsScrubStatus"),
+						zap.Error(err),
+					)
+					continue
+				}
+			} else {
+				superErrors = 0
+			}
+
+			if row[9].(string) != "" {
+				verifyErrors, err = strconv.Atoi(row[9].(string))
+				if err != nil {
+					logger.Error("failed to convert verify errors to int",
+						zap.String("op", "ParseBtrfsScrubStatus"),
+						zap.Error(err),
+					)
+					continue
+				}
+			} else {
+				verifyErrors = 0
+			}
+
+			if row[10].(string) != "" {
+				checksumErrors, err = strconv.Atoi(row[10].(string))
+				if err != nil {
+					logger.Error("failed to convert checksum errors to int",
+						zap.String("op", "ParseBtrfsScrubStatus"),
+						zap.Error(err),
+					)
+					continue
+				}
+			} else {
+				checksumErrors = 0
+			}
+
+			correctedErrors, err = strconv.Atoi(row[11].(string))
 			if err != nil {
 				logger.Error("failed to convert corrected errors to int",
 					zap.String("op", "ParseBtrfsScrubStatus"),
@@ -623,7 +669,7 @@ func ParseBtrfsScrubStatus(logger *zap.Logger, mount string, output []byte, temp
 				continue
 			}
 
-			uncorrectableErrors, err = strconv.Atoi(row[9].(string))
+			uncorrectableErrors, err = strconv.Atoi(row[12].(string))
 			if err != nil {
 				logger.Error("failed to convert uncorrectable errors to int",
 					zap.String("op", "ParseBtrfsScrubStatus"),
@@ -632,7 +678,7 @@ func ParseBtrfsScrubStatus(logger *zap.Logger, mount string, output []byte, temp
 				continue
 			}
 
-			unverifiedErrors, err = strconv.Atoi(row[10].(string))
+			unverifiedErrors, err = strconv.Atoi(row[13].(string))
 			if err != nil {
 				logger.Error("failed to convert unverified errors to int",
 					zap.String("op", "ParseBtrfsScrubStatus"),
@@ -655,6 +701,9 @@ func ParseBtrfsScrubStatus(logger *zap.Logger, mount string, output []byte, temp
 				"duration":             duration,
 				"total":                total,
 				"rate":                 rate,
+				"read_errors":          readErrors,
+				"super_errors":         superErrors,
+				"verify_errors":        verifyErrors,
 				"checksum_errors":      checksumErrors,
 				"corrected_errors":     correctedErrors,
 				"uncorrectable_errors": uncorrectableErrors,
