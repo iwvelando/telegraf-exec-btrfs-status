@@ -15,25 +15,25 @@ scrub status -d` require elevated permissions.
 This is sample `btrfs device stats` output this tool expects to parse:
 
 ```
-[/dev/loop11].write_io_errs    0
-[/dev/loop11].read_io_errs     0
+[/dev/loop11].write_io_errs    1024
+[/dev/loop11].read_io_errs     1024
 [/dev/loop11].flush_io_errs    0
 [/dev/loop11].corruption_errs  6144
 [/dev/loop11].generation_errs  0
 [/dev/loop10].write_io_errs    0
-[/dev/loop10].read_io_errs     0
+[/dev/loop10].read_io_errs     3584
 [/dev/loop10].flush_io_errs    0
-[/dev/loop10].corruption_errs  6144
+[/dev/loop10].corruption_errs  8704
 [/dev/loop10].generation_errs  0
 [/dev/loop9].write_io_errs    0
 [/dev/loop9].read_io_errs     0
 [/dev/loop9].flush_io_errs    0
-[/dev/loop9].corruption_errs  12288
+[/dev/loop9].corruption_errs  13312
 [/dev/loop9].generation_errs  0
 [/dev/loop8].write_io_errs    0
-[/dev/loop8].read_io_errs     0
+[/dev/loop8].read_io_errs     3584
 [/dev/loop8].flush_io_errs    0
-[/dev/loop8].corruption_errs  6144
+[/dev/loop8].corruption_errs  8704
 [/dev/loop8].generation_errs  0
 ```
 
@@ -81,42 +81,42 @@ This is sample `btrfs scrub status -d` output:
 ```
 UUID:             cef9ac15-c24e-47d0-9b68-6144c7119560
 scrub device /dev/loop11 (id 1) history
-Scrub started:    Fri Feb 12 22:27:03 2021
+Scrub started:    Sun Feb 21 23:33:54 2021
 Status:           finished
-Duration:         0:00:01
+Duration:         0:00:04
 Total to scrub:   1023.00MiB
-Rate:             928.02MiB/s
-Error summary:    csum=6144
-  Corrected:      5120
+Rate:             232.01MiB/s
+Error summary:    read=1024
+  Corrected:      0
   Uncorrectable:  1024
   Unverified:     0
 scrub device /dev/loop10 (id 2) history
-Scrub started:    Fri Feb 12 22:27:03 2021
+Scrub started:    Sun Feb 21 23:33:54 2021
 Status:           finished
-Duration:         0:00:01
+Duration:         0:00:03
 Total to scrub:   1023.00MiB
-Rate:             928.03MiB/s
-Error summary:    csum=6144
+Rate:             309.35MiB/s
+Error summary:    read=3584 csum=2560
   Corrected:      0
   Uncorrectable:  6144
   Unverified:     0
 scrub device /dev/loop9 (id 3) history
-Scrub started:    Fri Feb 12 22:27:03 2021
+Scrub started:    Sun Feb 21 23:33:54 2021
 Status:           finished
-Duration:         0:00:01
+Duration:         0:00:04
 Total to scrub:   1023.00MiB
-Rate:             928.09MiB/s
-Error summary:    csum=6144
-  Corrected:      5120
+Rate:             232.02MiB/s
+Error summary:    csum=1024
+  Corrected:      0
   Uncorrectable:  1024
   Unverified:     0
 scrub device /dev/loop8 (id 4) history
-Scrub started:    Fri Feb 12 22:27:03 2021
+Scrub started:    Sun Feb 21 23:33:54 2021
 Status:           finished
-Duration:         0:00:01
+Duration:         0:00:04
 Total to scrub:   1023.00MiB
-Rate:             928.08MiB/s
-Error summary:    csum=6144
+Rate:             232.02MiB/s
+Error summary:    read=3584 csum=2560
   Corrected:      0
   Uncorrectable:  6144
   Unverified:     0
