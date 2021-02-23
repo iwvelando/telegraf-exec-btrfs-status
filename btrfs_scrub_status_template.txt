@@ -20,7 +20,7 @@ Start
   ^Duration:\s*${Duration}
   ^Total to scrub:\s*${Total}
   ^Rate:\s*${Rate}
-  ^Error summary:\s*(read=${Read}\s*)?(super=${Super}\s*)?(verify=${Verify}\s*)?csum=${Checksum}
+  ^Error summary:\s*(read=${Read}\s*)?(super=${Super}\s*)?(verify=${Verify}\s*)?(csum=${Checksum})?$$
   ^\s*Corrected:\s*${Corrected}
   ^\s*Uncorrectable:\s*${Uncorrectable}
   ^\s*Unverified:\s*${Unverified} -> Record Start
