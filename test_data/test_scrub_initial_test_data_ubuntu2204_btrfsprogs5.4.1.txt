@@ -1,0 +1,42 @@
+UUID:             cef9ac15-c24e-47d0-9b68-6144c7119560
+scrub device /dev/loop11 (id 1) history
+Scrub started:    Sun Feb 21 23:33:54 2021
+Status:           finished
+Duration:         0:00:04
+Total to scrub:   1023.00MiB
+Rate:             232.01MiB/s
+Error summary:    read=1024
+  Corrected:      0
+  Uncorrectable:  1024
+  Unverified:     0
+scrub device /dev/loop10 (id 2) history
+Scrub started:    Sun Feb 21 23:33:54 2021
+Status:           finished
+Duration:         0:00:03
+Total to scrub:   1023.00MiB
+Rate:             309.35MiB/s
+Error summary:    read=3584 csum=2560
+  Corrected:      0
+  Uncorrectable:  6144
+  Unverified:     0
+scrub device /dev/loop9 (id 3) history
+Scrub started:    Sun Feb 21 23:33:54 2021
+Status:           finished
+Duration:         0:00:04
+Total to scrub:   1023.00MiB
+Rate:             232.02MiB/s
+Error summary:    csum=1024
+  Corrected:      0
+  Uncorrectable:  1024
+  Unverified:     0
+scrub device /dev/loop8 (id 4) history
+Scrub started:    Sun Feb 21 23:33:54 2021
+Status:           finished
+Duration:         0:00:04
+Total to scrub:   1023.00MiB
+Rate:             232.02MiB/s
+Error summary:    read=3584 csum=2560
+  Corrected:      0
+  Uncorrectable:  6144
+  Unverified:     0
+

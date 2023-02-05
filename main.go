@@ -11,6 +11,7 @@ import (
 	influx "github.com/influxdata/influxdb-client-go/v2"
 	influxWrite "github.com/influxdata/influxdb-client-go/v2/api/write"
 	log "github.com/sirupsen/logrus"
+	"io"
 	"os"
 	"os/exec"
 	"strconv"
@@ -44,7 +45,43 @@ func main() {
 		"./btrfs_scrub_status_template.txt",
 		"path to the TextFSM template for parsing btrfs scrub status -d",
 	)
+
+	fileInputScrub := flag.String(
+		"file-input-scrub",
+		"",
+		"[optional] path to file with scrub status output to be parsed, typically for testing",
+	)
+
 	flag.Parse()
+
+	if *fileInputScrub != "" {
+		f, err := os.Open(*fileInputScrub)
+		if err != nil {
+			log.WithFields(log.Fields{
+				"op":    "main",
+				"error": err,
+			}).Error(fmt.Sprintf("failed to open scrub input file %s", *fileInputScrub))
+			os.Exit(1)
+		}
+		defer f.Close()
+		scrubData, err := io.ReadAll(f)
+		if err != nil {
+			log.WithFields(log.Fields{
+				"op":    "main",
+				"error": err,
+			}).Error(fmt.Sprintf("failed to read scrub input file %s", *fileInputScrub))
+			os.Exit(1)
+		}
+		err = ParseBtrfsScrubStatus(*fileInputScrub, scrubData, *templateScrubStatus)
+		if err != nil {
+			log.WithFields(log.Fields{
+				"op":    "main",
+				"error": err,
+			}).Error(fmt.Sprintf("failed to parse scrub input file %s", *fileInputScrub))
+			os.Exit(1)
+		}
+		os.Exit(0)
+	}
 
 	mounts, err := GetBtrfsMounts()
 	if err != nil {
@@ -436,11 +473,17 @@ func ParseBtrfsScrubStatus(mount string, output []byte, templatePath string) err
 			break
 		}
 
-		deviceName := row[0].(string)
+		deviceName, ok := row[0].(string)
+		if !ok {
+			break
+		}
 
 		deviceId := row[1].(string)
 
 		startTimeRaw := row[2].(string)
+		if startTimeRaw == "" {
+			break
+		}
 		timeLayout := "Mon Jan 2 15:04:05 2006"
 		t, err := time.ParseInLocation(timeLayout, startTimeRaw, time.Local)
 		if err != nil {
