@@ -268,6 +268,24 @@ on the btrfs-progs source code I identified the following states to map:
 
 The default value if a match isn't found is 99.
 
+## Testing Scrub Data on Local Files
+
+You can run the scrub data parser on `btrfs scrub status -d` output that has been recorded in a
+local file. You can see this functionality with the test data included in the `test_data/`
+directory:
+
+```
+./telegraf-exec-btrfs-status  -file-input-scrub test_data/test_scrub_initial_test_data_ubuntu2204_btrfsprogs5.4.1.txt
+
+btrfs_scrub,device=/dev/loop11,device_id=1,mount=test_data/test_scrub_initial_test_data_ubuntu2204_btrfsprogs5.4.1.txt checksum_errors=0i,corrected_errors=0i,duration=4i,rate=243280117u,read_errors=1024i,start=1613972034i,status=1i,super_errors=0i,total=1072693248u,uncorrectable_errors=1024i,unverified_errors=0i,verify_errors=0i 1675565356819858000
+
+btrfs_scrub,device=/dev/loop10,device_id=2,mount=test_data/test_scrub_initial_test_data_ubuntu2204_btrfsprogs5.4.1.txt checksum_errors=2560i,corrected_errors=0i,duration=3i,rate=324376985u,read_errors=3584i,start=1613972034i,status=1i,super_errors=0i,total=1072693248u,uncorrectable_errors=6144i,unverified_errors=0i,verify_errors=0i 1675565356819858000
+
+btrfs_scrub,device=/dev/loop9,device_id=3,mount=test_data/test_scrub_initial_test_data_ubuntu2204_btrfsprogs5.4.1.txt checksum_errors=1024i,corrected_errors=0i,duration=4i,rate=243290603u,read_errors=0i,start=1613972034i,status=1i,super_errors=0i,total=1072693248u,uncorrectable_errors=1024i,unverified_errors=0i,verify_errors=0i 1675565356819858000
+
+btrfs_scrub,device=/dev/loop8,device_id=4,mount=test_data/test_scrub_initial_test_data_ubuntu2204_btrfsprogs5.4.1.txt checksum_errors=2560i,corrected_errors=0i,duration=4i,rate=243290603u,read_errors=3584i,start=1613972034i,status=1i,super_errors=0i,total=1072693248u,uncorrectable_errors=6144i,unverified_errors=0i,verify_errors=0i 1675565356819858000
+```
+
 # Future Work
 
 Tests should be added especially considering the sensitivity of parsing.

@@ -1,0 +1,22 @@
+UUID:             867f18ed-aaaa-aaaa-aaaa-c4492fb3049d
+
+Scrub device /dev/sda (id 4)
+        no stats available
+
+Scrub device /dev/sdc (id 5)
+        no stats available
+
+Scrub device /dev/sdd (id 6)
+        no stats available
+
+Scrub device  (id 7)
+        no stats available
+
+Scrub device /dev/sdb (id 8)
+        no stats available
+
+Scrub device /dev/sdf (id 9)
+        no stats available
+
+Scrub device /dev/sde (id 10)
+        no stats available
